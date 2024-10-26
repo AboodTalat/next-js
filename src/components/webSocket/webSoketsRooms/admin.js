@@ -20,14 +20,14 @@ export default function AdminChat() {
 
   async function initPushNotifications() {
     const registration = await navigator?.serviceWorker?.register("/sw.js");
-            console.log("Service Worker registered:", registration);
+    console.log("Service Worker registered:", registration);
 
-            alert(registration)
+    alert(registration);
 
-      if("Notification" in window) {
-             // Request notification permission
+    if ("Notification" in window) {
+      // Request notification permission
       const permission = await Notification.requestPermission();
-      
+
       if (permission === "granted") {
         console.log("Notification permission granted.");
         const existingSubscription = await registration?.pushManager?.getSubscription();
@@ -40,13 +40,10 @@ export default function AdminChat() {
       } else {
         console.error("Notification permission denied.");
       }
-      }else{
-        alert("can't notify")
-      }
-  
-
+    } else {
+      alert("can't notify");
+    }
   }
-  
 
   async function subscribeToPushNotifications(registration) {
     const applicationServerKey = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
@@ -130,13 +127,11 @@ export default function AdminChat() {
     });
   };
 
-
-
   const socketInitializer = async () => {
     console.log("Socket initializer called");
 
     // await fetch("/api/socket");
-     socket = io("http://192.168.100.7:3001");
+    socket = io("http://192.168.100.7:3001");
 
     // Join admin room
     socket.emit("joinAdmin");
@@ -236,7 +231,7 @@ export default function AdminChat() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex flex-col md:flex-row">
-        <button onClick={() => initPushNotifications()}>push notify</button>
+      <button onClick={() => initPushNotifications()}>push notify</button>
       {/* Customer List Section */}
       <div className="md:w-1/3 bg-white p-4 rounded-lg shadow-md md:mr-4 mb-4 md:mb-0">
         <h2 className="text-xl font-semibold text-gray-700 mb-4">Customers</h2>
