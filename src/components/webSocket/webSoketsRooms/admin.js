@@ -136,7 +136,7 @@ export default function AdminChat() {
     console.log("Socket initializer called");
 
     // await fetch("/api/socket");
-     socket = io("http://192.168.100.7:3001");
+     socket = io("http://localhost:3001");
 
     // Join admin room
     socket.emit("joinAdmin");
