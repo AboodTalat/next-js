@@ -5,14 +5,14 @@ workbox.routing.registerRoute(({ request }) => request.destination === "image", 
 const CACHE_NAME = "pwa-cache-v1";
 const urlsToCache = ["/", "/index.html", "/styles.css", "/script.js", "/images/icon.png"];
 
-// Install event
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
+// // Install event
+// self.addEventListener("install", (event) => {
+//   event.waitUntil(
+//     caches.open(CACHE_NAME).then((cache) => {
+//       return cache.addAll(urlsToCache);
+//     })
+//   );
+// });
 
 // Fetch event to serve cached resources
 self.addEventListener("fetch", (event) => {
