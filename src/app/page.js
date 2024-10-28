@@ -15,7 +15,6 @@ export default function Home() {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       // Proceed with subscription
-      alert("Notification permission granted!");
       sendNotification();
       // Your subscription code goes here
     } else {
@@ -25,18 +24,12 @@ export default function Home() {
 
   const sendNotification = async () => {
     if ("serviceWorker" in navigator) {
-      alert("good");
       const key = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
-      alert("after good");
       navigator.serviceWorker.register("/sw.js").then(async (registration) => {
-        alert("after after good");
-
         const subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: key,
         });
-
-        alert(subscription);
 
         // Convert the PushSubscription to a plain object
         const plainSubscription = {
@@ -50,7 +43,6 @@ export default function Home() {
         // Send the plainSubscription to the server
         await handler(plainSubscription);
       });
-      alert("registered");
     }
   };
 
