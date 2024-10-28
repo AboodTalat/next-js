@@ -41,5 +41,5 @@ export default function Home() {
   }, []);
   
 
-  return <div>Notifications Setup Complete</div>;
+  return <div><h1>Notification</h1></div>;
 }
