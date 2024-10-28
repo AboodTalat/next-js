@@ -46,7 +46,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {}, []);
 
   return (
     <div>
