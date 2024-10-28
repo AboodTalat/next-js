@@ -15,7 +15,9 @@ export default function Home() {
     if ("serviceWorker" in navigator) {
       alert("good")
       const key = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
+      alert("after good")
       navigator.serviceWorker.register("/sw.js").then(async (registration) => {
+        alert("after after good")
         const permission = await Notification.requestPermission();
         if (permission === "granted") {
           const subscription = await registration.pushManager.subscribe({
