@@ -23,7 +23,7 @@ export async function handler(subscription) {
         // Clear any existing interval to avoid multiple intervals running
         clearInterval(intervalId);
 
-        // Start sending notifications every second
+        // Start sending notifications every 3 seconds
         intervalId = setInterval(async () => {
             try {
                 await webPush.sendNotification(subscription, payload);
@@ -31,13 +31,13 @@ export async function handler(subscription) {
             } catch (error) {
                 console.error("Error sending notification:", error);
             }
-        }, 1000); // 1000 milliseconds = 1 second
+        }, 3000); // 3000 milliseconds = 3 seconds
         
         // Optional: Stop sending notifications after a certain duration
         setTimeout(() => {
             clearInterval(intervalId);
             console.log('Stopped sending notifications.');
-        }, 10000); // Stops after 10 seconds
+        }, 30000); // Stops after 30 seconds (10 notifications total)
     } catch (error) {
         console.error("Error in handler:", error);
     }
