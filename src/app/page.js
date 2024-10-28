@@ -19,7 +19,7 @@ export default function Home() {
       navigator.serviceWorker.register("/sw.js").then(async (registration) => {
         alert("after after good")
         const permission = await Notification.requestPermission();
-        alert(permission)
+        alert("permission")
         if (permission === "granted") {
           const subscription = await registration.pushManager.subscribe({
             userVisibleOnly: true,
