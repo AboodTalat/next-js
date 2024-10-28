@@ -23,7 +23,7 @@ export default function Home() {
             applicationServerKey: key,
           });
   
-          console.log(subscription);
+          alert(subscription)
   
           // Convert the PushSubscription to a plain object
           const plainSubscription = {
