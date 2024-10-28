@@ -13,6 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
+      alert("good")
       const key = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
       navigator.serviceWorker.register("/sw.js").then(async (registration) => {
         const permission = await Notification.requestPermission();
@@ -37,6 +38,7 @@ export default function Home() {
           await handler(plainSubscription);
         }
       });
+      alert("registered")
     }
   }, []);
   
