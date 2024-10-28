@@ -11,6 +11,6 @@
   "lang": "en-US",
   "name": "salameh",
   "short_name": "abood",
-  "start_url": "http://localhost:3000",
-  "scope": "http://localhost:3000/"
+  "start_url": "https://next-js-six-lake-41.vercel.app",
+  "scope": "https://next-js-six-lake-41.vercel.app"
 }
