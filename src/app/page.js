@@ -11,6 +11,28 @@ export default function Home() {
     return new Uint8Array([...rawData].map((char) => char.charCodeAt(0)));
   };
 
+
+  const requestNotificationPermission = async () => {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      // Proceed with subscription
+      alert("Notification permission granted!");
+      // Your subscription code goes here
+    } else {
+      alert("Notification permission denied.");
+    }
+  };
+  
+  // Inside your component
+  return (
+    <button onClick={requestNotificationPermission}>
+      Enable Notifications
+    </button>
+  );
+  
+
+
+
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       alert("good")
