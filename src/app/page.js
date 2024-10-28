@@ -11,62 +11,55 @@ export default function Home() {
     return new Uint8Array([...rawData].map((char) => char.charCodeAt(0)));
   };
 
-
   const requestNotificationPermission = async () => {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       // Proceed with subscription
       alert("Notification permission granted!");
+      sendNotification();
       // Your subscription code goes here
     } else {
       alert("Notification permission denied.");
     }
   };
-  
-  // Inside your component
-  return (
-    <button onClick={requestNotificationPermission}>
-      Enable Notifications
-    </button>
-  );
-  
 
-
-
-  useEffect(() => {
+  const sendNotification = async () => {
     if ("serviceWorker" in navigator) {
-      alert("good")
+      alert("good");
       const key = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
-      alert("after good")
+      alert("after good");
       navigator.serviceWorker.register("/sw.js").then(async (registration) => {
-        alert("after after good")
-        const permission = await Notification.requestPermission();
-        alert("permission")
-        if (permission === "granted") {
-          const subscription = await registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: key,
-          });
-  
-          alert(subscription)
-  
-          // Convert the PushSubscription to a plain object
-          const plainSubscription = {
-            endpoint: subscription.endpoint,
-            keys: {
-              p256dh: subscription.getKey('p256dh') ? btoa(String.fromCharCode(...new Uint8Array(subscription.getKey('p256dh')))) : '',
-              auth: subscription.getKey('auth') ? btoa(String.fromCharCode(...new Uint8Array(subscription.getKey('auth')))) : ''
-            }
-          };
-  
-          // Send the plainSubscription to the server
-          await handler(plainSubscription);
-        }
-      });
-      alert("registered")
-    }
-  }, []);
-  
+        alert("after after good");
 
-  return <div><h1>Notification</h1></div>;
+        const subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: key,
+        });
+
+        alert(subscription);
+
+        // Convert the PushSubscription to a plain object
+        const plainSubscription = {
+          endpoint: subscription.endpoint,
+          keys: {
+            p256dh: subscription.getKey("p256dh") ? btoa(String.fromCharCode(...new Uint8Array(subscription.getKey("p256dh")))) : "",
+            auth: subscription.getKey("auth") ? btoa(String.fromCharCode(...new Uint8Array(subscription.getKey("auth")))) : "",
+          },
+        };
+
+        // Send the plainSubscription to the server
+        await handler(plainSubscription);
+      });
+      alert("registered");
+    }
+  };
+
+  useEffect(() => {}, []);
+
+  return (
+    <div>
+      <h1>Notification</h1>
+      <button onClick={requestNotificationPermission}>Enable Notifications</button>
+    </div>
+  );
 }
