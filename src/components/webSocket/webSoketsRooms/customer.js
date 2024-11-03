@@ -29,9 +29,8 @@ export default function CustomerChat() {
   }, [chat]);
 
   const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io("http://localhost:3001");
-
+    socket = io("https://ca19-176-29-239-171.ngrok-free.app/");
+    console.log(socket)
     socket.emit("joinCustomer", { customerId, customerName: name });
 
     socket.on("previousChatHistory", (messages) => {

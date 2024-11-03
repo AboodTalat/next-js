@@ -22,7 +22,6 @@ export default function AdminChat() {
     const registration = await navigator?.serviceWorker?.register("/sw.js");
     console.log("Service Worker registered:", registration);
 
-    alert(registration);
 
     if ("Notification" in window) {
       // Request notification permission
@@ -49,15 +48,17 @@ export default function AdminChat() {
     const applicationServerKey = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
 
     try {
+      console.log("object")
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: applicationServerKey,
       });
+      console.log("after")
 
       console.log("Push subscription:", subscription);
 
       // Send the subscription to your server
-      await fetch("http://localhost:3001/api/subscribe", {
+      await fetch("https://ca19-176-29-239-171.ngrok-free.app/api/subscribe", {
         method: "POST",
         body: JSON.stringify(subscription),
         headers: {
@@ -131,7 +132,7 @@ export default function AdminChat() {
     console.log("Socket initializer called");
 
     // await fetch("/api/socket");
-    socket = io("http://192.168.100.7:3001");
+    socket = io("https://ca19-176-29-239-171.ngrok-free.app");
 
     // Join admin room
     socket.emit("joinAdmin");
